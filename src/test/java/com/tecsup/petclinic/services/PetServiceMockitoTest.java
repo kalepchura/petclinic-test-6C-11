@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.List;
 import java.util.Optional;
 
+import com.tecsup.petclinic.dtos.PetDTO;
+import com.tecsup.petclinic.mappers.PetMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,9 +33,12 @@ public class PetServiceMockitoTest {
     @Mock 
     private PetRepository repository;
 
+    @Mock
+    private PetMapper petMapper;
+
     @BeforeEach
     void setUp() {
-        this.petService = new PetServiceImpl(this.repository);
+        this.petService = new PetServiceImpl(this.repository, this.petMapper);
     }
 
     /**
@@ -47,15 +52,17 @@ public class PetServiceMockitoTest {
 
         Mockito.when(this.repository.findById(1))
                 .thenReturn((Optional.of(petExpected)));
+        PetDTO pet = null;
 
         try {
-            petExpected = this.petService.findById(1);
+            pet = this.petService.findById(1);
         } catch (PetNotFoundException e) {
             fail(e.getMessage());
         }
 
         log.info("" + petExpected);
-        assertEquals(petExpected.getName(), petExpected.getName());
+        log.info("" + pet);
+        assertEquals(petExpected.getName(), pet.getName());
 
     }
 
@@ -72,7 +79,7 @@ public class PetServiceMockitoTest {
         Mockito.when(this.repository.findByName(FIND_NAME))
                 .thenReturn(petsExpected);
 
-        List<Pet> pets = this.petService.findByName(FIND_NAME);
+        List<PetDTO> pets = this.petService.findByName(FIND_NAME);
 
         assertEquals(petsExpected.size(), pets.size());
     }

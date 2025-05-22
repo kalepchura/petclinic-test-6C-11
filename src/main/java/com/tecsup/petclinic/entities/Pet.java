@@ -1,10 +1,13 @@
 package com.tecsup.petclinic.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * 
@@ -13,6 +16,8 @@ import java.sql.Date;
  */
 @Entity(name = "pets")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Pet {
 
 	@Id
@@ -26,8 +31,9 @@ public class Pet {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "birth_date")
-	private Date birthDate;
-	
+	private LocalDate birthDate;
+
+	/*
 	public Pet() {
 	}
 
@@ -48,4 +54,7 @@ public class Pet {
 		this.ownerId = owner_id;
 		this.birthDate = birthDate;
 	}
+	 */
+
+
 }

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.tecsup.petclinic.dtos.PetDTO;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class PetServiceTest {
 
         Integer ID = 1;
 
-        Pet pet = null;
+        PetDTO pet = null;
 
         try {
             pet = this.petService.findById(ID);
@@ -49,7 +50,7 @@ public class PetServiceTest {
         String FIND_NAME = "Leo";
         int SIZE_EXPECTED = 1;
 
-        List<Pet> pets = this.petService.findByName(FIND_NAME);
+        List<PetDTO> pets = this.petService.findByName(FIND_NAME);
 
         assertEquals(SIZE_EXPECTED, pets.size());
     }
@@ -93,7 +94,10 @@ public class PetServiceTest {
         int OWNER_ID = 1;
         int TYPE_ID = 1;
 
-        Pet pet = new Pet(PET_NAME, 1, 1, null);
+        Pet pet = new Pet();
+        pet.setName(PET_NAME);
+        pet.setOwnerId(1);
+        pet.setTypeId(1);
 
         Pet petCreated = this.petService.create(pet);
 
@@ -121,7 +125,10 @@ public class PetServiceTest {
         int UP_OWNER_ID = 2;
         int UP_TYPE_ID = 2;
 
-        Pet pet = new Pet(PET_NAME, OWNER_ID, TYPE_ID, null);
+        Pet pet = new Pet();
+        pet.setName(PET_NAME);
+        pet.setOwnerId(OWNER_ID);
+        pet.setTypeId(TYPE_ID);
 
         // ------------ Create ---------------
 
@@ -158,7 +165,11 @@ public class PetServiceTest {
 
         // ------------ Create ---------------
 
-        Pet pet = new Pet(PET_NAME, OWNER_ID, TYPE_ID, null);
+        Pet pet = new Pet();
+        pet.setName(PET_NAME);
+        pet.setOwnerId(OWNER_ID);
+        pet.setTypeId(TYPE_ID);
+
         pet = this.petService.create(pet);
         log.info("" + pet);
 
