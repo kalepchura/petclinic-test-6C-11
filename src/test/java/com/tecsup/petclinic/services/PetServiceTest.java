@@ -94,19 +94,19 @@ public class PetServiceTest {
         int OWNER_ID = 1;
         int TYPE_ID = 1;
 
-        Pet pet = new Pet();
-        pet.setName(PET_NAME);
-        pet.setOwnerId(1);
-        pet.setTypeId(1);
+        PetDTO petDTO = new PetDTO();
+        petDTO.setName(PET_NAME);
+        petDTO.setOwnerId(1);
+        petDTO.setTypeId(1);
 
-        Pet petCreated = this.petService.create(pet);
+        PetDTO newPetDTO = this.petService.create(petDTO);
 
-        log.info("PET CREATED :" + petCreated.toString());
+        log.info("PET CREATED :" + newPetDTO.toString());
 
-        assertNotNull(petCreated.getId());
-        assertEquals(PET_NAME, petCreated.getName());
-        assertEquals(OWNER_ID, petCreated.getOwnerId());
-        assertEquals(TYPE_ID, petCreated.getTypeId());
+        assertNotNull(newPetDTO.getId());
+        assertEquals(PET_NAME, newPetDTO.getName());
+        assertEquals(OWNER_ID, newPetDTO.getOwnerId());
+        assertEquals(TYPE_ID, newPetDTO.getTypeId());
 
     }
 
@@ -125,32 +125,32 @@ public class PetServiceTest {
         int UP_OWNER_ID = 2;
         int UP_TYPE_ID = 2;
 
-        Pet pet = new Pet();
-        pet.setName(PET_NAME);
-        pet.setOwnerId(OWNER_ID);
-        pet.setTypeId(TYPE_ID);
+        PetDTO petDTO = new PetDTO();
+        petDTO.setName(PET_NAME);
+        petDTO.setOwnerId(OWNER_ID);
+        petDTO.setTypeId(TYPE_ID);
 
         // ------------ Create ---------------
 
-        log.info(">" + pet);
-        Pet petCreated = this.petService.create(pet);
-        log.info(">>" + petCreated);
+        log.info(">" + petDTO);
+        PetDTO petDTOCreated = this.petService.create(petDTO);
+        log.info(">>" + petDTOCreated);
 
         // ------------ Update ---------------
 
         // Prepare data for update
-        petCreated.setName(UP_PET_NAME);
-        petCreated.setOwnerId(UP_OWNER_ID);
-        petCreated.setTypeId(UP_TYPE_ID);
+        petDTOCreated.setName(UP_PET_NAME);
+        petDTOCreated.setOwnerId(UP_OWNER_ID);
+        petDTOCreated.setTypeId(UP_TYPE_ID);
 
         // Execute update
-        Pet upgradePet = this.petService.update(petCreated);
-        log.info(">>>>" + upgradePet);
+        PetDTO upgradePetDTO = this.petService.update(petDTOCreated);
+        log.info(">>>>" + upgradePetDTO);
 
         //            EXPECTED        ACTUAL
-        assertEquals(UP_PET_NAME, upgradePet.getName());
-        assertEquals(UP_OWNER_ID, upgradePet.getTypeId());
-        assertEquals(UP_TYPE_ID, upgradePet.getOwnerId());
+        assertEquals(UP_PET_NAME, upgradePetDTO.getName());
+        assertEquals(UP_OWNER_ID, upgradePetDTO.getTypeId());
+        assertEquals(UP_TYPE_ID, upgradePetDTO.getOwnerId());
     }
 
     /**
@@ -165,18 +165,18 @@ public class PetServiceTest {
 
         // ------------ Create ---------------
 
-        Pet pet = new Pet();
-        pet.setName(PET_NAME);
-        pet.setOwnerId(OWNER_ID);
-        pet.setTypeId(TYPE_ID);
+        PetDTO petDTO = new PetDTO();
+        petDTO.setName(PET_NAME);
+        petDTO.setOwnerId(OWNER_ID);
+        petDTO.setTypeId(TYPE_ID);
 
-        pet = this.petService.create(pet);
-        log.info("" + pet);
+        PetDTO  newPetDTO = this.petService.create(petDTO);
+        log.info("" + petDTO);
 
         // ------------ Delete ---------------
 
         try {
-            this.petService.delete(pet.getId());
+            this.petService.delete(newPetDTO.getId());
         } catch (PetNotFoundException e) {
             fail(e.getMessage());
         }
@@ -184,7 +184,7 @@ public class PetServiceTest {
         // ------------ Validation ---------------
 
         try {
-            this.petService.findById(pet.getId());
+            this.petService.findById(newPetDTO.getId());
             assertTrue(false);
         } catch (PetNotFoundException e) {
             assertTrue(true);

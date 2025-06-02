@@ -33,22 +33,29 @@ public class PetServiceImpl implements PetService {
 
 	/**
 	 * 
-	 * @param pet
+	 * @param petDTO
 	 * @return
 	 */
 	@Override
-	public Pet create(Pet pet) {
-		return petRepository.save(pet);
+	public PetDTO create(PetDTO petDTO) {
+
+		Pet newPet = petRepository.save(petMapper.mapToEntity(petDTO));
+
+		return petMapper.mapToDto(newPet);
 	}
 
 	/**
 	 * 
-	 * @param pet
+	 * @param petDTO
 	 * @return
 	 */
 	@Override
-	public Pet update(Pet pet) {
-		return petRepository.save(pet);
+	public PetDTO update(PetDTO petDTO) {
+
+		Pet newPet = petRepository.save(petMapper.mapToEntity(petDTO));
+
+		return petMapper.mapToDto(newPet);
+
 	}
 
 

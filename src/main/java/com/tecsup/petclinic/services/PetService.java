@@ -18,14 +18,14 @@ public interface PetService {
 	 * @param pet
 	 * @return
 	 */
-	Pet create(Pet pet);
+	public PetDTO create(PetDTO petDTO);
 
 	/**
 	 * 
 	 * @param pet
 	 * @return
 	 */
-	Pet update(Pet pet);
+	PetDTO update(PetDTO pet);
 
 	/**
 	 * 
