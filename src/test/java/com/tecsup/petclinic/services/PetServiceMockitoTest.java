@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+//import org.springframework.test.context.bean.override.mockito.MockitoBean; // New import
 
 @Slf4j
 //@ExtendWith(MockitoExtension.class)
