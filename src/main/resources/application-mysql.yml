@@ -30,7 +30,7 @@ logging :
 
   # Output to a temp_folder/file
   file :
-    name : /Users/jgomez/temp/application.log
+    name : ${user.home}/temp/application.log
 
   pattern :
   # Logging pattern for the console : IT IS OK

@@ -2,6 +2,7 @@ package com.tecsup.petclinic.services;
 
 import java.util.List;
 
+import com.tecsup.petclinic.dtos.PetDTO;
 import com.tecsup.petclinic.entities.Pet;
 import com.tecsup.petclinic.exceptions.PetNotFoundException;
 
@@ -17,14 +18,14 @@ public interface PetService {
 	 * @param pet
 	 * @return
 	 */
-	Pet create(Pet pet);
+	public PetDTO create(PetDTO petDTO);
 
 	/**
 	 * 
 	 * @param pet
 	 * @return
 	 */
-	Pet update(Pet pet);
+	PetDTO update(PetDTO pet);
 
 	/**
 	 * 
@@ -38,14 +39,14 @@ public interface PetService {
 	 * @param id
 	 * @return
 	 */
-	Pet findById(Integer id) throws PetNotFoundException;
+	PetDTO findById(Integer id) throws PetNotFoundException;
 
 	/**
 	 * 
 	 * @param name
 	 * @return
 	 */
-	List<Pet> findByName(String name);
+	List<PetDTO> findByName(String name);
 
 	/**
 	 * 

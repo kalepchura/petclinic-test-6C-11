@@ -1,5 +1,6 @@
 package com.tecsup.petclinic.util;
 
+import com.tecsup.petclinic.dtos.PetDTO;
 import com.tecsup.petclinic.entities.Pet;
 
 import java.util.ArrayList;
@@ -12,7 +13,11 @@ public class TObjectCreator {
 	}
 
 	public static Pet newPet() {
-		return new Pet(0,"Punky",1,1, null);
+		Pet newEntity = new Pet();
+		newEntity.setName("Punky");
+		newEntity.setTypeId(1);
+		newEntity.setOwnerId(1);
+		return newEntity;
 	}
 
 	public static Pet newPetCreated() {
@@ -20,6 +25,21 @@ public class TObjectCreator {
 		pet.setId(1000);
 		return pet;
 	}
+
+	public static PetDTO newPetDTO() {
+		PetDTO newDTO = new PetDTO();
+		newDTO.setName("Punky");
+		newDTO.setTypeId(1);
+		newDTO.setOwnerId(1);
+		return newDTO;
+	}
+
+	public static PetDTO newPetDTOCreated() {
+		PetDTO petDTO = newPetDTO();
+		petDTO.setId(1000);
+		return petDTO;
+	}
+
 
 	public static Pet newPetForUpdate() {
 		return new Pet(0,"Bear",1,1,null);

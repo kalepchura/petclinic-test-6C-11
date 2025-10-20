@@ -2,7 +2,10 @@ package com.tecsup.petclinic.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.tecsup.petclinic.dtos.PetDTO;
+import com.tecsup.petclinic.mappers.PetMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,32 +23,40 @@ import com.tecsup.petclinic.repositories.PetRepository;
 @Slf4j
 public class PetServiceImpl implements PetService {
 
-
 	PetRepository petRepository;
+	PetMapper petMapper;
 
-	public PetServiceImpl (PetRepository petRepository) {
+	public PetServiceImpl (PetRepository petRepository, PetMapper petMapper) {
 		this. petRepository = petRepository;
+		this.petMapper = petMapper;
 	}
 
 
 	/**
 	 * 
-	 * @param pet
+	 * @param petDTO
 	 * @return
 	 */
 	@Override
-	public Pet create(Pet pet) {
-		return petRepository.save(pet);
+	public PetDTO create(PetDTO petDTO) {
+
+		Pet newPet = petRepository.save(petMapper.mapToEntity(petDTO));
+
+		return petMapper.mapToDto(newPet);
 	}
 
 	/**
 	 * 
-	 * @param pet
+	 * @param petDTO
 	 * @return
 	 */
 	@Override
-	public Pet update(Pet pet) {
-		return petRepository.save(pet);
+	public PetDTO update(PetDTO petDTO) {
+
+		Pet newPet = petRepository.save(petMapper.mapToEntity(petDTO));
+
+		return petMapper.mapToDto(newPet);
+
 	}
 
 
@@ -57,8 +68,9 @@ public class PetServiceImpl implements PetService {
 	@Override
 	public void delete(Integer id) throws PetNotFoundException{
 
-		Pet pet = findById(id);
-		petRepository.delete(pet);
+		PetDTO pet = findById(id);
+
+		petRepository.delete(this.petMapper.mapToEntity(pet));
 
 	}
 
@@ -68,16 +80,14 @@ public class PetServiceImpl implements PetService {
 	 * @return
 	 */
 	@Override
-	public Pet findById(Integer id) throws PetNotFoundException {
+	public PetDTO findById(Integer id) throws PetNotFoundException {
 
 		Optional<Pet> pet = petRepository.findById(id);
 
 		if ( !pet.isPresent())
 			throw new PetNotFoundException("Record not found...!");
 
-
-
-		return pet.get();
+		return this.petMapper.mapToDto(pet.get());
 	}
 
 	/**
@@ -86,13 +96,16 @@ public class PetServiceImpl implements PetService {
 	 * @return
 	 */
 	@Override
-	public List<Pet> findByName(String name) {
+	public List<PetDTO> findByName(String name) {
 
 		List<Pet> pets = petRepository.findByName(name);
 
 		pets.forEach(pet -> log.info("" + pet));
 
-		return pets;
+		return pets
+				.stream()
+				.map(this.petMapper::mapToDto)
+				.collect(Collectors.toList());
 	}
 
 	/**
