@@ -15,7 +15,7 @@ public interface PetService {
 
 	/**
 	 * 
-	 * @param pet
+	 * @param petDTO
 	 * @return
 	 */
 	public PetDTO create(PetDTO petDTO);
