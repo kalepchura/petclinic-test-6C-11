@@ -94,10 +94,12 @@ public class PetServiceTest {
         int OWNER_ID = 1;
         int TYPE_ID = 1;
 
-        PetDTO petDTO = new PetDTO();
-        petDTO.setName(PET_NAME);
-        petDTO.setOwnerId(1);
-        petDTO.setTypeId(1);
+        PetDTO petDTO = PetDTO.builder()
+                .name(PET_NAME)
+                .ownerId(OWNER_ID)
+                .typeId(TYPE_ID)
+                .build();
+
 
         PetDTO newPetDTO = this.petService.create(petDTO);
 
@@ -125,10 +127,11 @@ public class PetServiceTest {
         int UP_OWNER_ID = 2;
         int UP_TYPE_ID = 2;
 
-        PetDTO petDTO = new PetDTO();
-        petDTO.setName(PET_NAME);
-        petDTO.setOwnerId(OWNER_ID);
-        petDTO.setTypeId(TYPE_ID);
+        PetDTO petDTO = PetDTO.builder()
+                .name(PET_NAME)
+                .ownerId(OWNER_ID)
+                .typeId(TYPE_ID)
+                .build();
 
         // ------------ Create ---------------
 
@@ -165,10 +168,11 @@ public class PetServiceTest {
 
         // ------------ Create ---------------
 
-        PetDTO petDTO = new PetDTO();
-        petDTO.setName(PET_NAME);
-        petDTO.setOwnerId(OWNER_ID);
-        petDTO.setTypeId(TYPE_ID);
+        PetDTO petDTO = PetDTO.builder()
+                .name(PET_NAME)
+                .ownerId(OWNER_ID)
+                .typeId(TYPE_ID)
+                .build();
 
         PetDTO  newPetDTO = this.petService.create(petDTO);
         log.info("" + petDTO);
