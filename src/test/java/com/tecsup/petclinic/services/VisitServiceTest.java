@@ -20,11 +20,10 @@ public class VisitServiceTest {
     @Autowired
     private VisitService visitService;
 
-    // ==================== PRUEBAS DE BÚSQUEDA ====================
 
-    /**
-     * Test 1: Buscar visita por ID
-     */
+
+     //Test 1: Buscar visita por ID
+
     @Test
     public void testFindVisitById() {
         String EXPECTED_DESCRIPTION = "rabies shot";
@@ -43,9 +42,9 @@ public class VisitServiceTest {
         assertNotNull(visit.getPetId());
     }
 
-    /**
-     * Test 2: Buscar visitas por Pet ID
-     */
+
+    //Test 2: Buscar visitas por Pet ID
+
     @Test
     public void testFindVisitsByPetId() {
         Integer PET_ID = 8;
@@ -58,9 +57,9 @@ public class VisitServiceTest {
         assertEquals(SIZE_EXPECTED, visits.size());
     }
 
-    /**
-     * Test 3: Buscar visitas por Vet ID
-     */
+
+     //Test 3: Buscar visitas por Vet ID
+
     @Test
     public void testFindVisitsByVetId() {
         Integer VET_ID = 2;
@@ -73,9 +72,9 @@ public class VisitServiceTest {
         assertTrue(visits.size() >= MIN_EXPECTED);
     }
 
-    /**
-     * Test 4: Buscar todas las visitas
-     */
+
+     //Test 4: Buscar todas las visitas
+
     @Test
     public void testFindAllVisits() {
         int MIN_EXPECTED = 6; // Según data.sql hay 6 visitas
@@ -87,11 +86,9 @@ public class VisitServiceTest {
         assertTrue(visits.size() >= MIN_EXPECTED);
     }
 
-    // ==================== PRUEBAS DE CREACIÓN ====================
 
-    /**
-     * Test 5: Crear una nueva visita
-     */
+     // Test 5: Crear una nueva visita
+
     @Test
     public void testCreateVisit() {
         Integer PET_ID = 1;
@@ -119,11 +116,10 @@ public class VisitServiceTest {
         assertEquals(COST, newVisitDTO.getCost());
     }
 
-    // ==================== PRUEBAS DE ACTUALIZACIÓN ====================
 
-    /**
-     * Test 6: Actualizar una visita
-     */
+
+    //Test 6: Actualizar una visita
+
     @Test
     public void testUpdateVisit() {
         Integer PET_ID = 2;
@@ -156,11 +152,10 @@ public class VisitServiceTest {
         assertEquals(UPDATED_COST, visitDTOUpdated.getCost());
     }
 
-    // ==================== PRUEBAS DE ELIMINACIÓN ====================
 
-    /**
-     * Test 7: Eliminar una visita
-     */
+
+     //Test 7: Eliminar una visita
+
     @Test
     public void testDeleteVisit() {
         Integer PET_ID = 3;
