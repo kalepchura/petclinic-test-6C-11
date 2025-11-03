@@ -21,7 +21,7 @@ INSERT INTO vets (id, first_name, last_name, email, phone, active) VALUES
 
 -- ===============================================
 -- 2. INSERT SPECIALTIES (Especialidades)
--- ===============================================
+-- ======================2=========================
 INSERT INTO specialties (id, name, office, h_open, h_close) VALUES
 (1, 'radiology', 'Farewell', 8, 18),
 (2, 'surgery', 'Maryland', 8, 12),
