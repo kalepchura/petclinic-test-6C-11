@@ -103,6 +103,35 @@ public class VetSpecialtyServiceTest {
 
             assertTrue(vetSpecialties.size() >= SIZE_EXPECTED);
         }
+        @Test
+        public void testDeleteVetSpecialty() {
+
+            Integer VET_ID = 3;
+            Integer SPECIALTY_ID = 3;
+
+        // ------------ Create ---------------
+
+            VetSpecialtyDTO vetSpecialtyDTO = VetSpecialtyDTO.builder()
+                    .vetId(VET_ID)
+                    .specialtyId(SPECIALTY_ID)
+                    .certificationDate(LocalDate.now())
+                    .yearsExperience(2)
+                    .isPrimary(true)
+                    .build();
+
+            VetSpecialtyDTO createdVetSpecialty = this.vetSpecialtyService.create(vetSpecialtyDTO);
+            log.info("" + createdVetSpecialty);
+
+            this.vetSpecialtyService.delete(createdVetSpecialty);
+
+
+        // Verificamos que ya no existe buscando relaciones para este vet
+            List<VetSpecialtyDTO> vetSpecialties = this.vetSpecialtyService.findByVetId(VET_ID);
+            boolean found = vetSpecialties.stream()
+                    .anyMatch(vs -> vs.getVetId().equals(VET_ID) && vs.getSpecialtyId().equals(SPECIALTY_ID));
+
+            assertTrue(!found, "La relación vet-specialty debería haber sido eliminada");
+        }
 
 
 
