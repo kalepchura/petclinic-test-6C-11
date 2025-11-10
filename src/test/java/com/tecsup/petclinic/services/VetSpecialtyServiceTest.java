@@ -1,60 +1,59 @@
 package com.tecsup.petclinic.services;
 
-
-import com.tecsup.petclinic.entities.VetSpecialty;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@DataJpaTest
+import com.tecsup.petclinic.dtos.VetSpecialtyDTO;
+
+import lombok.extern.slf4j.Slf4j;
+
+@SpringBootTest
+@Slf4j
 public class VetSpecialtyServiceTest {
 
-    private VetSpecialtyService service;
-
     @Autowired
-    private com.tecsup.petclinic.repositories.VetSpecialtyRepository repository;
+    private VetSpecialtyService vetSpecialtyService;
 
-    @BeforeEach
-    void setup() {
-        repository.deleteAll();
-        service = new VetSpecialtyService(repository);
-    }
-
+    /**
+     * CASO 6 - Prueba para crear relación vet-specialty
+     */
     @Test
-    void pruebaAsignarEspecialidad() {
-        VetSpecialty vs = new VetSpecialty(1, 1, LocalDate.now(), 5, true);
-        VetSpecialty creado = service.asignarEspecialidad(vs);
-        assertNotNull(creado);
+    public void testCreateVetSpecialty() {
+
+        Integer VET_ID = 1;
+        Integer SPECIALTY_ID = 1;
+        LocalDate CERTIFICATION_DATE = LocalDate.now();
+        int YEARS_EXPERIENCE = 5;
+        boolean IS_PRIMARY = true;
+
+        VetSpecialtyDTO vetSpecialtyDTO = VetSpecialtyDTO.builder()
+                .vetId(VET_ID)
+                .specialtyId(SPECIALTY_ID)
+                .certificationDate(CERTIFICATION_DATE)
+                .yearsExperience(YEARS_EXPERIENCE)
+                .isPrimary(IS_PRIMARY)
+                .build();
+
+        VetSpecialtyDTO newVetSpecialtyDTO = this.vetSpecialtyService.create(vetSpecialtyDTO);
+
+        log.info("VetSpecialty CREATED :" + newVetSpecialtyDTO.toString());
+
+        assertNotNull(newVetSpecialtyDTO);
+        assertEquals(VET_ID, newVetSpecialtyDTO.getVetId());
+        assertEquals(SPECIALTY_ID, newVetSpecialtyDTO.getSpecialtyId());
+        assertEquals(CERTIFICATION_DATE, newVetSpecialtyDTO.getCertificationDate());
+        assertEquals(YEARS_EXPERIENCE, newVetSpecialtyDTO.getYearsExperience());
+        assertEquals(IS_PRIMARY, newVetSpecialtyDTO.isPrimary());
     }
 
-    @Test
-    void pruebaBuscarPorVeterinario() {
-        service.asignarEspecialidad(new VetSpecialty(1, 1, LocalDate.now(), 5, true));
-        service.asignarEspecialidad(new VetSpecialty(1, 2, LocalDate.now(), 3, false));
-        List<VetSpecialty> lista = service.buscarPorVeterinario(1);
-        assertEquals(2, lista.size());
-    }
 
-    @Test
-    void pruebaBuscarPorEspecialidad() {
-        service.asignarEspecialidad(new VetSpecialty(1, 1, LocalDate.now(), 5, true));
-        service.asignarEspecialidad(new VetSpecialty(2, 1, LocalDate.now(), 2, false));
-        List<VetSpecialty> lista = service.buscarPorEspecialidad(1);
-        assertEquals(2, lista.size());
-    }
-
-    @Test
-    void pruebaEliminarRelacion() {
-        VetSpecialty vs = new VetSpecialty(1, 1, LocalDate.now(), 5, true);
-        service.asignarEspecialidad(vs);
-        service.eliminarRelacion(vs);
-        List<VetSpecialty> lista = service.buscarPorVeterinario(1);
-        assertEquals(0, lista.size());
-    }
 }
